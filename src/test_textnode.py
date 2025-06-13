@@ -4,6 +4,7 @@ from textnode import *
 from splitdelimiter import *
 
 
+
 class TestTextNode(unittest.TestCase):
     def test_eq(self):
         node = TextNode("This is a text node", TextType.BOLD)
@@ -49,6 +50,8 @@ class TestTextNode(unittest.TestCase):
     TextNode("link", TextType.LINK, "https://boot.dev"),
 ])
 
+
+ 
 
 if __name__ == "__main__":
     unittest.main()
