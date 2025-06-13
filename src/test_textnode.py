@@ -1,6 +1,7 @@
 import unittest
 
 from textnode import *
+from splitdelimiter import *
 
 
 class TestTextNode(unittest.TestCase):
@@ -29,6 +30,24 @@ class TestTextNode(unittest.TestCase):
         html_node = text_node_to_html_node(node)
         self.assertEqual(html_node.tag, None)
         self.assertEqual(html_node.value, "This is a text node")
+
+    def test_text_textnode(self):
+        node = "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        node_list = text_to_textnodes(node)
+        
+        
+        self.assertEqual(node_list,[
+    TextNode("This is ", TextType.TEXT),
+    TextNode("text", TextType.BOLD),
+    TextNode(" with an ", TextType.TEXT),
+    TextNode("italic", TextType.ITALIC),
+    TextNode(" word and a ", TextType.TEXT),
+    TextNode("code block", TextType.CODE),
+    TextNode(" and an ", TextType.TEXT),
+    TextNode("obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
+    TextNode(" and a ", TextType.TEXT),
+    TextNode("link", TextType.LINK, "https://boot.dev"),
+])
 
 
 if __name__ == "__main__":
