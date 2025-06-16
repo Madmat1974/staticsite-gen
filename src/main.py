@@ -1,5 +1,6 @@
 import os, shutil
 from textnode import *
+from extraction import generate_page
 
 import os, shutil
 
@@ -24,5 +25,7 @@ def main():
         shutil.rmtree("public")
     os.mkdir("public")
     copy_file_function("static", "public")
+    generate_page("content/index.md", "template.html", "public/index.html")
+
 
 main()
