@@ -1,6 +1,7 @@
 import os
 from markdown_blocks import markdown_to_html_node
 from htmlnode import *
+from main import *
 
 def extract_title(markdown):
     print (markdown)
@@ -23,7 +24,7 @@ def get_markdown_file():
     markdown = open(source_file).read()
     return markdown
 
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path, template_path, basepath, dest_path):
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
     mdpath_var = open(from_path).read()
     tfpath_var = open(template_path).read()
@@ -31,6 +32,8 @@ def generate_page(from_path, template_path, dest_path):
     wbtitle = extract_title(mdpath_var)
     tfpath_var = tfpath_var.replace("{{ Title }}", wbtitle)
     tfpath_var = tfpath_var.replace("{{ Content }}", mdhtml)
+    tfpath_var = tfpath_var.replace('href="/', f'href="{basepath}')
+    tfpath_var = tfpath_var.replace('src="/', f'scr="{basepath}')
     os.makedirs(os.path.dirname(dest_path), exist_ok=True)
     with open(dest_path, "w") as f:
         f.write(tfpath_var)
